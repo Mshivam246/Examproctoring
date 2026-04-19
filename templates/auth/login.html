@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Login | ExamSecure AI{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+    <div class="card auth-card">
+        <h1>Login</h1>
+        <p class="muted">Sign in to access your assigned exams.</p>
+
+        <form method="post" class="form-grid">
+            {% csrf_token %}
+            <label for="id_username">Username</label>
+            {{ form.username }}
+
+            <label for="id_password">Password</label>
+            {{ form.password }}
+
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Result | {{ exam.title }}{% endblock %}
+{% block content %}
+<section class="card result-card">
+    <h1>Exam Submitted</h1>
+    <p><strong>Exam:</strong> {{ exam.title }}</p>
+    <p><strong>Your score:</strong> {{ submission.score }} / {{ max_score }}</p>
+    <p><strong>Submitted on:</strong> {{ submission.submitted_at }}</p>
+    <a href="{% url 'exam_list' %}" class="btn">Back to Exams</a>
+</section>
+{% endblock %}

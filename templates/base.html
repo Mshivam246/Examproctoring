@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Online Exam{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">ExamSecure AI</div>
+        {% if user.is_authenticated %}
+            <nav class="top-nav">
+                <span class="user-pill">{{ user.username }}</span>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-outline" type="submit">Logout</button>
+                </form>
+            </nav>
+        {% endif %}
+    </header>
+
+    <main class="container">
+        {% if messages %}
+            <div class="message-stack">
+                {% for message in messages %}
+                    <div class="message">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Available Exams{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Available Exams</h1>
+    <p class="muted">Each exam is AI-proctored. Webcam, microphone, and fullscreen mode are required.</p>
+
+    <div class="exam-list">
+        {% for exam in exams %}
+            <article class="exam-item">
+                <h2>{{ exam.title }}</h2>
+                <p>{{ exam.description|default:'No description provided.' }}</p>
+                <p><strong>Starts:</strong> {{ exam.start_time }}</p>
+                <p><strong>Ends:</strong> {{ exam.end_time }}</p>
+                <p><strong>Duration:</strong> {{ exam.duration_minutes }} minutes</p>
+                <a href="{% url 'take_exam' exam.id %}" class="btn">Start Exam</a>
+            </article>
+        {% empty %}
+            <p>No active exams right now.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
