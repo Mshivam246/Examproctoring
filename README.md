@@ -160,6 +160,9 @@ DEBUG=False
 ALLOWED_HOSTS=your-service-name.onrender.com
 CSRF_TRUSTED_ORIGINS=https://your-service-name.onrender.com
 USE_SQLITE=True
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_EMAIL=admin@example.com
+DJANGO_SUPERUSER_PASSWORD=replace-with-a-strong-password
 ```
 
 ### Database options
@@ -180,12 +183,28 @@ If your host requires TLS, also set:
 DB_SSL_REQUIRE=True
 ```
 
-### One-time admin setup after deploy
+### Automatic admin setup on Render Free
 
-After the first deployment, create an admin user from your host's shell/console:
+Render free web services do not provide shell access, so this project now runs:
 
-```powershell
-python manage.py createsuperuser
+```text
+python manage.py bootstrap_admin
+```
+
+during the build after migrations.
+
+If these environment variables are set, the deploy will automatically create or update the admin account:
+
+```ini
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_EMAIL=admin@example.com
+DJANGO_SUPERUSER_PASSWORD=replace-with-a-strong-password
+```
+
+Then log in at:
+
+```text
+https://your-service-name.onrender.com/admin/
 ```
 
 ## Notes
