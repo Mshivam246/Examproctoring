@@ -30,7 +30,7 @@ This project is a starter implementation of an online exam platform with AI-assi
 - `templates/` HTML templates
 - `static/` CSS and JavaScript assets
 
-## Setup
+## Local Setup
 
 ### 1) Install the tools you need
 
@@ -136,6 +136,57 @@ If you see a database error, check these items first:
 - The database name in `.env` matches the one you created
 - The MySQL username and password are correct
 - Port `3306` is open and not being used by another service
+
+## Deployment
+
+This project now includes a production-ready Django setup for platforms like Render.
+
+### Quick deploy on Render
+
+1. Push this repository to GitHub.
+2. In Render, create a new `Web Service` from the repository.
+3. Render can detect `render.yaml`, or you can set these manually:
+
+```text
+Build Command: bash build.sh
+Start Command: gunicorn online_exam.wsgi:application
+```
+
+4. Set environment variables in Render:
+
+```ini
+SECRET_KEY=replace-with-a-long-random-secret
+DEBUG=False
+ALLOWED_HOSTS=your-service-name.onrender.com
+CSRF_TRUSTED_ORIGINS=https://your-service-name.onrender.com
+USE_SQLITE=True
+```
+
+### Database options
+
+- `USE_SQLITE=True`: easiest deployment path for demos and small projects
+- `DATABASE_URL=...`: recommended for hosted databases
+- MySQL variables (`DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`) still work for existing local MySQL setups
+
+Example hosted MySQL URL:
+
+```ini
+DATABASE_URL=mysql://USER:PASSWORD@HOST:3306/DB_NAME
+```
+
+If your host requires TLS, also set:
+
+```ini
+DB_SSL_REQUIRE=True
+```
+
+### One-time admin setup after deploy
+
+After the first deployment, create an admin user from your host's shell/console:
+
+```powershell
+python manage.py createsuperuser
+```
 
 ## Notes
 

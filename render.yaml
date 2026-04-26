@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: online-exam-proctoring
+    runtime: python
+    buildCommand: "bash build.sh"
+    startCommand: "gunicorn online_exam.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DEBUG
+        value: "False"
+      - key: USE_SQLITE
+        value: "True"
+      - key: ALLOWED_HOSTS
+        value: "online-exam-proctoring.onrender.com"
